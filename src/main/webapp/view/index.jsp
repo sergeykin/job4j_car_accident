@@ -15,6 +15,9 @@
     Hello : ${user}
 </div>
 <div>
+    <a href="<c:url value='/create'/>">Добавить инцидент</a>
+</div>
+<div>
     <table class="table">
         <thead>
         <tr>
