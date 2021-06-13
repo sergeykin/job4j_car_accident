@@ -5,17 +5,22 @@ import ru.job4j.job4j_car_accident.model.Accident;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Repository
 public class AccidentMem {
     private final HashMap<Integer, Accident> accidents = new HashMap<>();
+    private AtomicInteger index = new AtomicInteger(0);
 
     public AccidentMem() {
-        Accident accident1 = accidents.put(1,new Accident(1, "name1", "text1", "address1"));
-        Accident accident2 = accidents.put(2,new Accident(2, "name2", "text2", "address2"));
+        Accident accident1 = this.add(new Accident(0, "name1", "text1", "address1"));
+        Accident accident2 = this.add(new Accident(0, "name2", "text2", "address2"));
     }
 
     public Accident add(Accident accident) {
+        if (accident.getId() == 0) {
+            accident.setId(index.incrementAndGet());
+        }
         accidents.put(accident.getId(), accident);
         return accidents.get(accident.getId());
     }
@@ -26,6 +31,9 @@ public class AccidentMem {
         }
     }
 
+    public Accident getID(Integer id) {
+        return accidents.get(id);
+    }
 
     public Collection<Accident> getAccidents() {
         return accidents.values();

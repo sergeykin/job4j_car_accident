@@ -35,6 +35,8 @@
                 <td><c:out value="${accident.name}"/></td>
                 <td><c:out value="${accident.text}"/></td>
                 <td><c:out value="${accident.address}"/></td>
+                <td><input type="button" onclick="location.href='<c:url value='/edit?id=${accident.id}'/>'"
+                           class="btn btn-light" value="..."></td>
             </tr>
         </c:forEach>
 
