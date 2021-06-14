@@ -32,11 +32,19 @@
         <c:forEach items="${accidentMem}" var="accident">
             <tr>
                 <td><c:out value="${accident.id}"/></td>
-                <td><c:out value="${accident.name}"/></td>
+
+
+                <td><span>
+            <c:out value="${accident.name}"/>
+        </span>
+                    <span>
+             <a href="<c:url value='/update?id=${accident.id}'/>">...</a>
+        </span>
+                </td>
                 <td><c:out value="${accident.text}"/></td>
                 <td><c:out value="${accident.address}"/></td>
                 <td><input type="button" onclick="location.href='<c:url value='/edit?id=${accident.id}'/>'"
-                           class="btn btn-light" value="..."></td>
+                           class="btn btn-light" value="Редактировать"></td>
             </tr>
         </c:forEach>
 
