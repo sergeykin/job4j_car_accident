@@ -1,6 +1,7 @@
 package ru.job4j.job4j_car_accident.model;
 
 import java.util.Objects;
+import java.util.Set;
 
 public class Accident {
     private int id;
@@ -10,6 +11,8 @@ public class Accident {
 
     private AccidentType type;
 
+    private Set<Rule> rules;
+
     public Accident() {
     }
 
@@ -18,7 +21,7 @@ public class Accident {
         this.name = name;
         this.text = text;
         this.address = address;
-        this.type      = type;
+        this.type = type;
     }
 
     public int getId() {
@@ -61,6 +64,14 @@ public class Accident {
         this.type = type;
     }
 
+    public Set<Rule> getRules() {
+        return rules;
+    }
+
+    public void setRules(Set<Rule> rules) {
+        this.rules = rules;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -82,6 +93,7 @@ public class Accident {
                 ", text='" + text + '\'' +
                 ", address='" + address + '\'' +
                 ", type=" + type +
+                ", rules=" + rules +
                 '}';
     }
 
