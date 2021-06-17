@@ -47,8 +47,9 @@ public class AccidentControl {
 
         String[] ids = req.getParameterValues("rIds");
         Set<Rule> rules = new HashSet<>();
-        for (int i = 0; i < ids.length; i++) {
-            rules.add(accidents.getRuleID(Integer.parseInt(ids[i])));
+
+        for (String id : ids) {
+            rules.add(accidents.getRuleID(Integer.parseInt(id)));
         }
         accident.setRules(rules);
         accidents.add(accident);
