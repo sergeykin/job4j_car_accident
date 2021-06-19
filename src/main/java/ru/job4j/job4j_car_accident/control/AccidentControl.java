@@ -7,23 +7,23 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.job4j.job4j_car_accident.model.Accident;
-import ru.job4j.job4j_car_accident.model.AccidentType;
 import ru.job4j.job4j_car_accident.model.Rule;
+import ru.job4j.job4j_car_accident.repository.AccidentJdbcTemplate;
 import ru.job4j.job4j_car_accident.repository.AccidentMem;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 
 @Controller
 public class AccidentControl {
     private final AccidentMem accidents;
+    private final AccidentJdbcTemplate accidentJdbcTemplate;
 
-    public AccidentControl(AccidentMem accidents) {
+    public AccidentControl(AccidentMem accidents, AccidentJdbcTemplate accidentJdbcTemplate) {
         this.accidents = accidents;
+        this.accidentJdbcTemplate = accidentJdbcTemplate;
     }
 
     @GetMapping("/create")
@@ -45,14 +45,15 @@ public class AccidentControl {
     @PostMapping("/save")
     public String save(@ModelAttribute Accident accident, HttpServletRequest req) {
 
-        String[] ids = req.getParameterValues("rIds");
-        Set<Rule> rules = new HashSet<>();
-
-        for (String id : ids) {
-            rules.add(accidents.getRuleID(Integer.parseInt(id)));
-        }
-        accident.setRules(rules);
-        accidents.add(accident);
+//        String[] ids = req.getParameterValues("rIds");
+//        Set<Rule> rules = new HashSet<>();
+//
+//        for (String id : ids) {
+//            rules.add(accidents.getRuleID(Integer.parseInt(id)));
+//        }
+//        accident.setRules(rules);
+//        accidents.add(accident);
+        accidentJdbcTemplate.save(accident);
         return "redirect:/";
     }
 
