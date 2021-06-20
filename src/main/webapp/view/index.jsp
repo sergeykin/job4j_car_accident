@@ -29,10 +29,9 @@
         </thead>
         <tbody>
 
-        <c:forEach items="${accidentMem}" var="accident">
+        <c:forEach items="${accidents}" var="accident">
             <tr>
                 <td><c:out value="${accident.id}"/></td>
-
 
                 <td><span>
             <c:out value="${accident.name}"/>

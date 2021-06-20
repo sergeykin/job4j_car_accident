@@ -20,9 +20,10 @@ public class IndexControl {
 
     @GetMapping("/")
     public String index(Model model) {
-        List<Accident> list = new ArrayList<>();
-        list = accidents.getAll();
+        List<Accident> list;
+        list = (List<Accident>) accidents.getAccidents();
         model.addAttribute("accidents", list);
+        model.addAttribute("user", "sega");
         return "index";
     }
 

@@ -18,12 +18,10 @@ import java.util.Set;
 
 @Controller
 public class AccidentControl {
-    private final AccidentMem accidents;
-    private final AccidentJdbcTemplate accidentJdbcTemplate;
+    private final AccidentJdbcTemplate accidents;
 
-    public AccidentControl(AccidentMem accidents, AccidentJdbcTemplate accidentJdbcTemplate) {
-        this.accidents = accidents;
-        this.accidentJdbcTemplate = accidentJdbcTemplate;
+    public AccidentControl(AccidentJdbcTemplate accidentJdbcTemplate) {
+        this.accidents = accidentJdbcTemplate;
     }
 
     @GetMapping("/create")
@@ -45,15 +43,15 @@ public class AccidentControl {
     @PostMapping("/save")
     public String save(@ModelAttribute Accident accident, HttpServletRequest req) {
 
-//        String[] ids = req.getParameterValues("rIds");
-//        Set<Rule> rules = new HashSet<>();
-//
-//        for (String id : ids) {
-//            rules.add(accidents.getRuleID(Integer.parseInt(id)));
-//        }
-//        accident.setRules(rules);
-//        accidents.add(accident);
-        accidentJdbcTemplate.save(accident);
+        String[] ids = req.getParameterValues("rIds");
+        Set<Rule> rules = new HashSet<>();
+
+        for (String id : ids) {
+            rules.add(accidents.getRuleID(Integer.parseInt(id)));
+        }
+        accident.setRules(rules);
+        accidents.add(accident);
+//        accidentJdbcTemplate.save(accident);
         return "redirect:/";
     }
 
