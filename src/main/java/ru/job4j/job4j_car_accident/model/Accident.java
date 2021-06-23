@@ -1,16 +1,30 @@
 package ru.job4j.job4j_car_accident.model;
 
+import javax.persistence.*;
 import java.util.Objects;
 import java.util.Set;
 
+@Entity
+@Table(name = "accident")
 public class Accident {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     private String name;
     private String text;
     private String address;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "type_id", referencedColumnName = "id")
     private AccidentType type;
 
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinTable(name = "rule_accident",
+            joinColumns =
+                    { @JoinColumn(name = "accident_id", referencedColumnName = "id") },
+            inverseJoinColumns =
+                    { @JoinColumn(name = "rule_id", referencedColumnName = "id") })
     private Set<Rule> rules;
 
     public Accident() {
