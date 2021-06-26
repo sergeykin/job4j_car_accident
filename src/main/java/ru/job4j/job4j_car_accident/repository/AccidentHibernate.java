@@ -10,7 +10,6 @@ import ru.job4j.job4j_car_accident.model.Rule;
 
 
 import java.util.Collection;
-import java.util.List;
 
 @Repository
 public class AccidentHibernate {
@@ -22,7 +21,9 @@ public class AccidentHibernate {
 
     public Accident add(Accident accident) {
         try (Session session = sf.openSession()) {
+            session.beginTransaction();
             session.save(accident);
+            session.getTransaction().commit();
             return accident;
         }
     }
@@ -62,9 +63,7 @@ public class AccidentHibernate {
 
     public Collection<Accident> getAccidents() {
         try (Session session = sf.openSession()) {
-            return session
-                    .createQuery("select accident from ru.job4j.job4j_car_accident.model.Accident accident", Accident.class)
-                    .list();
+            return session.createQuery("select distinct ac from Accident ac join fetch ac.rules join fetch ac.type").list();
         }
     }
 

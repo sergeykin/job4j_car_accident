@@ -39,6 +39,8 @@ public class HbmConfig {
         sessionFactory.setPackagesToScan("ru.job4j.job4j_car_accident.model");
         Properties cfg = new Properties();
         cfg.setProperty("hibernate.dialect", dialect);
+        cfg.setProperty("hibernate.hbm2ddl.auto", "update");
+        cfg.setProperty("hibernate.show_sql", "true");
         sessionFactory.setHibernateProperties(cfg);
         return sessionFactory;
     }

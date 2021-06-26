@@ -1,6 +1,7 @@
 package ru.job4j.job4j_car_accident.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -19,13 +20,10 @@ public class Accident {
     @JoinColumn(name = "type_id", referencedColumnName = "id")
     private AccidentType type;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinTable(name = "rule_accident",
-            joinColumns =
-                    { @JoinColumn(name = "accident_id", referencedColumnName = "id") },
-            inverseJoinColumns =
-                    { @JoinColumn(name = "rule_id", referencedColumnName = "id") })
-    private Set<Rule> rules;
+@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+@JoinTable(name = "rule_accident")
+private Set<Rule> rules = new HashSet<>();
+
 
     public Accident() {
     }

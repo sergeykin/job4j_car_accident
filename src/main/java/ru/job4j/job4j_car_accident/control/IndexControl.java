@@ -8,6 +8,7 @@ import ru.job4j.job4j_car_accident.repository.AccidentHibernate;
 import ru.job4j.job4j_car_accident.repository.AccidentJdbcTemplate;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 
@@ -22,7 +23,8 @@ public class IndexControl {
     @GetMapping("/")
     public String index(Model model) {
         List<Accident> list;
-        list = (List<Accident>) accidents.getAccidents();
+        Collection<Accident> accident1 = accidents.getAccidents();
+        list = (List<Accident>) accident1;
         model.addAttribute("accidents", list);
         model.addAttribute("user", "sega");
         return "index";
