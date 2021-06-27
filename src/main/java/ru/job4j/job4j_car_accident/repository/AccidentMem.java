@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
-@Repository
+//@Repository
 public class AccidentMem {
     private final HashMap<Integer, Accident> accidents = new HashMap<>();
     private AtomicInteger index = new AtomicInteger(0);

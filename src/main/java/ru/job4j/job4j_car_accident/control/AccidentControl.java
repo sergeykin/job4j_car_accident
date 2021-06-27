@@ -7,10 +7,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.job4j.job4j_car_accident.model.Accident;
+import ru.job4j.job4j_car_accident.model.AccidentType;
 import ru.job4j.job4j_car_accident.model.Rule;
 import ru.job4j.job4j_car_accident.repository.AccidentHibernate;
 import ru.job4j.job4j_car_accident.repository.AccidentJdbcTemplate;
 import ru.job4j.job4j_car_accident.repository.AccidentMem;
+import ru.job4j.job4j_car_accident.service.AccidentService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashSet;
@@ -19,10 +21,10 @@ import java.util.Set;
 
 @Controller
 public class AccidentControl {
-    private final AccidentHibernate accidents;
+    private final AccidentService accidents;
 
-    public AccidentControl(AccidentHibernate accidentJdbcTemplate) {
-        this.accidents = accidentJdbcTemplate;
+    public AccidentControl(AccidentService accidents) {
+        this.accidents = accidents;
     }
 
     @GetMapping("/create")
@@ -50,6 +52,8 @@ public class AccidentControl {
         for (String id : ids) {
             rules.add(accidents.getRuleID(Integer.parseInt(id)));
         }
+        AccidentType accidentType= accidents.getTypeID(accident.getType().getId());
+        accident.setType(accidentType);
         accident.setRules(rules);
         accidents.add(accident);
 //        accidentJdbcTemplate.save(accident);

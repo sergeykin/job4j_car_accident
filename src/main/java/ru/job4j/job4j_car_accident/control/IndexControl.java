@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import ru.job4j.job4j_car_accident.model.Accident;
 import ru.job4j.job4j_car_accident.repository.AccidentHibernate;
 import ru.job4j.job4j_car_accident.repository.AccidentJdbcTemplate;
+import ru.job4j.job4j_car_accident.repository.AccidentRepository;
+import ru.job4j.job4j_car_accident.service.AccidentService;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -14,17 +16,16 @@ import java.util.List;
 
 @Controller
 public class IndexControl {
-    private final AccidentHibernate accidents;
+    private final AccidentService accidents;
 
-    public IndexControl(AccidentHibernate accidents) {
+    public IndexControl(AccidentService accidents) {
         this.accidents = accidents;
     }
 
     @GetMapping("/")
     public String index(Model model) {
-        List<Accident> list;
-        Collection<Accident> accident1 = accidents.getAccidents();
-        list = (List<Accident>) accident1;
+        List<Accident> list = new ArrayList<>();
+        accidents.getAccidents().forEach(list::add);
         model.addAttribute("accidents", list);
         model.addAttribute("user", "sega");
         return "index";

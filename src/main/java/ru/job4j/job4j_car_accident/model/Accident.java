@@ -16,11 +16,11 @@ public class Accident {
     private String text;
     private String address;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "type_id", referencedColumnName = "id")
     private AccidentType type;
 
-@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+@ManyToMany
 @JoinTable(name = "rule_accident")
 private Set<Rule> rules = new HashSet<>();
 
