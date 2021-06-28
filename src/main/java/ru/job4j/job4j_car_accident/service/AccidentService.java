@@ -20,25 +20,24 @@ public class AccidentService {
     AccidentTypeRepository accidentTypeRepository;
     RuleRepository ruleRepository;
 
-    public AccidentService(AccidentRepository accidentRepository, AccidentTypeRepository accidentTypeRepository, RuleRepository ruleRepository) {
+    public AccidentService(AccidentRepository accidentRepository
+            , AccidentTypeRepository accidentTypeRepository
+            , RuleRepository ruleRepository) {
         this.accidentRepository = accidentRepository;
         this.accidentTypeRepository = accidentTypeRepository;
         this.ruleRepository = ruleRepository;
     }
 
-    @Transactional
     public Collection<Accident> getAccidents() {
         return accidentRepository.findAccidentAll();
     }
 
-    @Transactional
     public Collection<AccidentType> getAccidentTypes() {
         List<AccidentType> list = new ArrayList<>();
         accidentTypeRepository.findAll().forEach(list::add);
         return list;
     }
 
-    @Transactional
     public Collection<Rule> getRules() {
         List<Rule> list = new ArrayList<>();
         ruleRepository.findAll().forEach(list::add);
@@ -46,17 +45,14 @@ public class AccidentService {
 
     }
 
-    @Transactional
     public Accident getID(int id) {
         return accidentRepository.findById(id).get();
     }
 
-    @Transactional
     public Rule getRuleID(int id) {
         return ruleRepository.findById(id).get();
     }
 
-    @Transactional
     public AccidentType getTypeID(Integer id) {
         return accidentTypeRepository.findById(id).get();
     }
