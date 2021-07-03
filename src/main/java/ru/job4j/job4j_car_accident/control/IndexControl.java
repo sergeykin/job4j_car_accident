@@ -1,5 +1,6 @@
 package ru.job4j.job4j_car_accident.control;
 
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,7 +28,7 @@ public class IndexControl {
         List<Accident> list = new ArrayList<>();
         accidents.getAccidents().forEach(list::add);
         model.addAttribute("accidents", list);
-        model.addAttribute("user", "sega");
+        model.addAttribute("user", SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         return "index";
     }
 

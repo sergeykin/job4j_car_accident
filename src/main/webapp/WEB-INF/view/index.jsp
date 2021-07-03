@@ -12,7 +12,7 @@
 </head>
 <body>
 <div>
-    Hello : ${user}
+    Hello : ${user.username}
 </div>
 <div>
     <a href="<c:url value='/create'/>">Добавить инцидент</a>
