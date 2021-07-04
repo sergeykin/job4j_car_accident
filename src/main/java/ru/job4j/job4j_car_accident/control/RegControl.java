@@ -1,6 +1,7 @@
 package ru.job4j.job4j_car_accident.control;
 
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,16 +30,15 @@ public class RegControl {
     @PostMapping("/reg")
     public String save(@ModelAttribute User user) {
 
-        List<User> users1 = users.findByUsername(user.getUsername());
-        if (!users1.isEmpty()) {
-            return "reg";
-        }
-
         user.setEnabled(true);
         user.setPassword(encoder.encode(user.getPassword()));
         user.setAuthority(authorities.findByAuthority("ROLE_USER"));
-        users.save(user);
-        return "redirect:/login";
+        try {
+            users.save(user);
+            return "redirect:/login";
+        } catch (DataIntegrityViolationException e) {
+            return "reg";
+        }
     }
 
     @GetMapping("/reg")
