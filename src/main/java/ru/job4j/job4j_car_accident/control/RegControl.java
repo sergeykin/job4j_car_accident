@@ -11,6 +11,8 @@ import ru.job4j.job4j_car_accident.model.User;
 import ru.job4j.job4j_car_accident.repository.AuthorityRepository;
 import ru.job4j.job4j_car_accident.repository.UserRepository;
 
+import java.util.List;
+
 @Controller
 public class RegControl {
 
@@ -26,6 +28,12 @@ public class RegControl {
 
     @PostMapping("/reg")
     public String save(@ModelAttribute User user) {
+
+        List<User> users1 = users.findByUsername(user.getUsername());
+        if (!users1.isEmpty()) {
+            return "reg";
+        }
+
         user.setEnabled(true);
         user.setPassword(encoder.encode(user.getPassword()));
         user.setAuthority(authorities.findByAuthority("ROLE_USER"));
