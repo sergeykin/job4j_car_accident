@@ -56,7 +56,6 @@ public class AccidentControl {
         accident.setType(accidentType);
         accident.setRules(rules);
         accidents.add(accident);
-//        accidentJdbcTemplate.save(accident);
         return "redirect:/";
     }
 

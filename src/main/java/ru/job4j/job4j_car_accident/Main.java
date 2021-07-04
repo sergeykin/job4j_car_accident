@@ -7,6 +7,5 @@ public class Main {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         String pwd = encoder.encode("secret");
         System.out.println(pwd);
-        //$2a$10$EY0B/Ba6kIFCKNTVR.ghSOao.4vfiaBR9eXpmaNtKADn0PejujDYO
     }
 }

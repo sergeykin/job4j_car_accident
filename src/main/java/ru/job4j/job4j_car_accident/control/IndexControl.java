@@ -32,14 +32,4 @@ public class IndexControl {
         return "index";
     }
 
-//    private AccidentMem accidentMem = new AccidentMem();
-//
-//    @GetMapping("/")
-//    public String index(Model model) {
-//        model.addAttribute("user", "Petr Arsentev");
-//
-//
-//        model.addAttribute("accidentMem", accidentMem.getAccidents());
-//        return "index";
-//    }
 }
